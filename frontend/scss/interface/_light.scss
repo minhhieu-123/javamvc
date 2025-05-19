@@ -1,0 +1,44 @@
+html{
+    // header
+    --header-bg-color: #eee;
+    --search-border-color-focus: #F8F8FB;
+    --search-border-color:#D2D1D6;
+    --search-background: #fff;
+    --color-text: #1A162E;
+    --color-icon: brightness(0) saturate(100%);
+    //body
+    --body--bg-color: #F6F6F6;
+    //cart
+    --cart-item-bg: #EEE;
+    --cart-item--thumb-bg: #fff;
+    --cart-item-text-color: #1A162E;
+    // filter-btn
+    --filter-btn-bg: #fff;
+    --filter-btn-text-color: #6C6C72;
+    //product
+    --name-brand-text-color: #9E9DA8;
+    --product-cart-boxshadown:0px 20px 60px 10px rgba(237, 237, 246, 0.20);
+    //namebrand
+    --color-text-namebrand: #9E9DA8;
+    //form
+    --form-boder-default-color: #D2D1D6;
+    //signup
+    --auth-form-content-bg-color: #FFF;
+    --bg-intro-color:#fff;
+    --color-text-auth: #1A162E;
+    //breakcrumbs
+    --breadcrumbs-text-color: #9E9DA8;
+    --breadcrumbs-text-last-color: #1A162E;
+    --breadcrumbs-bg-color: #F6F6F6;
+    --breadcrumbs-boxshadown-color:  0px 20px 60px 10px rgba(237, 237, 246, 0.20); 
+    //product
+    --prod-preview-thumbs-img-cur-bdcolor: #ffb700;
+    --prod-preview-thumbs-img-bdcolor: #9E9DA8;
+    --prod-preview-bgcolor: #F6F6F6;
+    --prod-preview-color-intro: #9E9DA8;
+    //product-cmt
+    --prod-cur-item-text-color: #1A162E;
+    --prod-tab-heding-textcolor: #1A162E;
+    --prod-tab-cmt-bgc: #FAFAFD;
+    --prod-tab-nameuser-textcolor: #1A162E;
+}

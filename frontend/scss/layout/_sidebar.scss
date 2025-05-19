@@ -1,0 +1,48 @@
+.profile__sidebar{
+    overflow: hidden;
+    border-radius: 20px;
+    padding-bottom: 30px;
+}
+.profile-user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 20px;
+    background: linear-gradient(180deg, rgba(26, 22, 46, 0) 0%, #1a162e 100%),
+            url("/frontend/assets/img/profile/cover.png") no-repeat center / cover;
+    box-shadow: 0px 20px 60px 10px var(--profile-sidebar-shadow);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 144.444%;
+    &__desc{
+        font-size: 15px;
+    }
+}
+.profile-menu{
+    padding-left: 30px;
+    &__icon{
+        padding-right: 10px;
+        width: 29px;
+        height: 29px;
+    }
+    &__title{
+        margin-top: 30px;
+        color: var(--Secondary-Color-Secondary-1, #1A162E);
+        font-size: 18px;
+        font-weight: 500;
+        line-height:  144.444%; 
+        align-items: center;
+    }
+    &__list{
+        margin-top: 16px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 146.667%; 
+        &> li{
+            padding-left: 10px;
+            margin-bottom: 8px;
+        }
+    }
+  
+}

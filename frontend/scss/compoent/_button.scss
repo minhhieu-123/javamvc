@@ -1,0 +1,73 @@
+// filler
+.filter_btn{
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 14px;
+    border-radius: 6px;
+    background: var(--filter-btn-bg);
+    color: var(--filter-btn-text-color);
+    &__icon{
+        filter: var(--color-icon);
+    }
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 142.857% ;
+}
+//btn
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 46px;
+    padding: 0 20px;
+    border-radius: 6px;
+    background: #f8f8fb;
+    font-size: 1.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    user-select: none;
+    &--small {
+        height: 40px;
+    }
+    + .btn {
+        &:not(.btn--no-margin) {
+            margin-left: 20px;
+        }
+    }
+
+    &--text {
+        background: transparent;
+        font-weight: 400;
+    }
+
+    &--primary {
+        color: #171c28;
+        background: #ffb700;
+    }
+
+    &--outline {
+        background: transparent;
+        border: 1px solid #d2d1d6;
+    }
+
+    &--rounded {
+        border-radius: 99px;
+    }
+
+    &--danger {
+        color: #fff;
+        background: #ed4337;
+    }
+
+    &[disabled],
+    &--disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    &:hover {
+        opacity: 0.9;
+    }
+}

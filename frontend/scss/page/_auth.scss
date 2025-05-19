@@ -1,0 +1,96 @@
+@use "../abtracts";
+.auth{
+    min-height: 100vh;
+    display: flex;
+    &__intro, &__content{
+        flex: 1;
+        padding: 0 30px;
+    }
+    &__intro{
+        // &-img{
+        @include abtracts.breakpoint(md){
+            display: none;
+        }
+        background-color: var(--bg-intro-color);
+        // }
+        &-text{
+            color: var(--color-text);
+            max-width: 412px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 500;
+            line-height: 144.444%;
+            margin-top: 50px;
+        }
+        &-img{
+            max-width:100%;
+            
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    &__content{
+        background-color: var(--auth-form-content-bg-color);
+        @include abtracts.breakpoint(md){
+            display: grid;
+            grid-template-columns: 1fr;
+        
+        }
+        &-inner{
+             @include abtracts.breakpoint(md){
+          
+             padding:50px 0 0 0;    
+        }
+            padding: 50px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+           
+          
+            width: min(460px, 100%);
+            text-align: center;
+            margin: 0 auto;
+            gap: 50px;
+        }
+    }
+    &__heading{
+        color: var(--color-text);
+        font-size: 3rem;
+        font-weight: 500;
+        line-height: 146.667%;
+    }
+    &__desc{
+        color: var(--form-boder-default-color);
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 146.667%;
+    }
+    &__link{
+        color:#0071DC;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 146.667%; 
+    }
+     &__btn-group{
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    &__btn_1{
+        width: 100%;
+        color: var(--color-text-auth);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 144.444% ; 
+    }
+    &__text{
+         color: var(--form-boder-default-color);
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 146.667%;
+    }
+}

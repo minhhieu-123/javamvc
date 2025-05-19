@@ -1,0 +1,61 @@
+@use "../abtracts";
+
+.product-card{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background: var(--cart-item-bg);
+    box-shadow: var( --product-cart-boxshadown);
+    &__info{
+        margin-top: 16px;
+         display: flex;
+        flex-direction: column;
+    }
+    &__link{
+        position: relative;
+        padding-top: 100%;
+     
+    }
+    &__thumb{
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+    &__title{
+        color: var(--color-text);
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 150%;
+    }
+    &__namebrand{
+        color: var(--color-text-namebrand);
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 146.667% ; 
+        margin: 16px 0;
+    }
+    &__row{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__cost,&__rating{
+          color: var(--color-text);
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 150%;
+        @include abtracts.breakpoint(md){
+             font-size: 14px;
+        }
+    }
+    &__rating{
+        display: flex;
+        align-items: center;
+    }
+    &__star{
+        padding-right: 6px;
+    }
+}

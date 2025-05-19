@@ -1,0 +1,20 @@
+{
+  "name": "do_an_tt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "sass frontend/scss:frontend/css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhhieu-123/ddtn.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhhieu-123/ddtn/issues"
+  },
+  "homepage": "https://github.com/minhhieu-123/ddtn#readme",
+  "description": ""
+}

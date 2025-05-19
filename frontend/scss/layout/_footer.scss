@@ -1,0 +1,83 @@
+@use "../abtracts";
+
+.footer{
+    background-color: var(--header-bg-color);
+    padding: 50px 0 10px;
+    margin-top: 60px;
+     @include abtracts.breakpoint(md){
+             margin-top: 15px;
+        }
+    &__heading{
+        color: var(--color-text);
+        height: 28px;
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 144.444%;
+         @include abtracts.breakpoint(md){
+             margin-top: 25px;
+        }
+    }
+    &__row{
+        display: grid;
+        grid-template-columns: 1fr 0.6fr 1fr;
+          @include abtracts.breakpoint(md){
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        gap: 80px;
+    }
+    &__col{
+        display: flex;
+        flex-direction: column;
+    }
+    &__desc,&__help-text{
+        color: var(--color-text);
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 1.5;
+        height: 100%;
+    }
+    &__desc{
+        margin-top: 30px;
+    }
+    &__help-text{
+        margin-top: 40px;
+    }
+    &__help-submit{
+        margin-left: 15px;
+    }
+    &__form{
+        display: flex;
+        flex-direction: row;
+         margin: 20px 0 0;
+    }
+   &__link{
+        > *{
+            padding: 8px 0;
+             color: var(--color-text);
+            font-size: 1.4rem;
+            font-weight: 400;
+            line-height: 1.5;
+            height: 100%;
+        }
+        display: flex;
+        flex-direction: column;
+        margin-top: 12px;
+    }
+    &__map{
+        margin-top: 20px;
+        width: 100%;
+    }
+    &__bottom{
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text);
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 1.5;
+        height: 100%;
+    }
+}

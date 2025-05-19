@@ -1,0 +1,61 @@
+@use "../abtracts";
+
+.home{
+    &__container{
+        margin-top: 40px ;
+        &-product{
+            margin-top: 30px ;
+        }
+        @include abtracts.breakpoint(md){
+            margin-top: 30px;
+        }
+    }
+    &__heading{
+        color: var(--color-text);
+        font-family: Gordita;
+        height: 40px;
+        width: auto;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 141.667%;
+        @include abtracts.breakpoint(md){
+            height: 40px;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 145.455%;
+        }
+        margin-bottom: 20px;
+    }
+    &__cate{
+        --grid-gutter-x: 51px;
+        @include abtracts.breakpoint(md){
+            --grid-gutter-y: 20px;
+        }
+    }
+    // filer
+    &__row{
+        display: flex;
+        align-items: self-start;
+       justify-content: space-between;
+    }
+
+    &_product{
+        --grid-gutter-y: 30px;
+
+          @include abtracts.breakpoint(md){
+            --grid-gutter-x: 15px;
+            --grid-gutter-y: 15px;
+        }
+    }
+}
+.checkout{
+    &__container{
+        margin-top: 30px;
+    }
+}
+.profile{
+    &-container{
+        margin-top: 30px;
+    }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán | Hieu Perfume</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+    <!--  -->
+    <!-- Font -->
+    <link rel="stylesheet" href="./assets/fonts/stylesheet.css">
+     <!--  -->
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="./js/main.js"></script>
+</head>
+<body>
+   
+
+    <!-- Header -->
+    <header id="header" class="header"></header>
+    <script>
+        load("#header", "./compoents/header.html");
+    </script>
+    <!--  -->
+    <div class="container">
+        <!-- breadcrumbs -->
+        <div class="checkout__container">
+            <div class="breadcrumbs">
+                <ul class="breadcrumbs__list">
+                    <li>
+                        <a href="" class="breadcrumbs__link" >
+                            Hieu Perfume
+                            <img src="./assets/icon/arow-right.svg" class="breadcrumbs__link-icon" alt="">
+                        </a>
+                    </li>
+                    <a href="" class="breadcrumbs__link" >
+                            Giỏ hàng
+                            <img src="./assets/icon/arow-right.svg" class="breadcrumbs__link-icon" alt="">
+                        </a>
+                    <li>
+                        <a href="" class="breadcrumbs__link" >
+                            Xác nhận thanh toán
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Product -->
+        <div class="checkout__container">
+            <div class="row">
+                <div class="col-8 col-xl-12">
+                    <div class="cart-confirm">
+                        <div class="cart-confirm__heading">
+                            Thông tin đặt hàng
+                        </div>
+                        <form action="POST">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="cart-confirm__group-input d-flex">
+                                        <label for="" class="cart-confirm__label">Tên người nhận</label>
+                                        <input type="text" class="cart-confirm__input form-default" placeholder="VD: Nguyễn Văn A">
+                                    </div>
+                                    <div class="cart-confirm__group-input d-flex">
+                                        <label for="" class="cart-confirm__label">Tỉnh thành
+                                            <select name="" id="province" class="cart-confirm__select">
+                                                <option value="">Chọn tỉnh / thành phố</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="cart-confirm__group-input d-flex">
+                                        <label for="" class="cart-confirm__label">Phường xã
+                                            <select name="" id="ward" class="cart-confirm__select">
+                                                <option value="">Chọn phường / xã</option>
+                                             </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="cart-confirm__group-input d-flex">
+                                        <label for="" class="cart-confirm__label">Số điện thoại</label>
+                                        <input type="text" class="cart-confirm__input form-default" placeholder="VD: 0123456789">
+                                    </div>
+                                    <div class="cart-confirm__group-input d-flex">
+                                        <label for="" class="cart-confirm__label">Quận huyện</label>
+                                        <select name="" id="district" class="cart-confirm__select">
+                                            <option value="">Chọn quận/ huyện</option>
+                                        </select>
+                                    </div>
+                                    <div class="cart-confirm__group-input d-flex">
+                                        <label for="" class="cart-confirm__label">Địa chỉ chi tiết</label>
+                                        <input type="text" class="cart-confirm__input form-default" placeholder="Nhập số nhà, tên đường">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                     <div class="cart-confirm__group-input d-flex">
+                                        <label for="" class="cart-confirm__label">Ghi chú</label>
+                                        <textarea name="" id="" placeholder="Ghi chú đơn hàng" class="cart-confirm__textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- script api tinh thanh pho -->
+                            <script src="./js/api.js"></script>
+                        </form>
+                         <div class="cart-confirm__heading cart-confirm__heading-option">
+                            Phương thức thanh toán
+                        </div>
+                        <div class="cart-confirm__option d-flex">
+                            <label for="">
+                                <input type="radio" name="" id="">
+                                Thanh toán khi nhận hàng
+                            </label>
+                            <label for="">
+                                <input type="radio" name="" id="">
+                                Thanh toán trực tiếp bằng tài khoản ngân hàng quá ví VNPAY
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-xl-12">
+                    <div class="cart-info">
+                        <div class="cart-info__row">
+                            <div class="cart-info__row-name-product">Coffee Beans - Espresso Arabica and Robusta Beans
+                                <div class="cart-info__row-name-info d-flex" style="justify-content: space-between;">
+                                    <span>Loại:
+                                        <span>!00ml</span>
+                                    </span>
+                                    <span>x3</span>
+                                </div>
+                            </div>
+                             <div class="cart-info__bottom-row cart-info__bill">
+                                <span>Tổng phụ</span>
+                                <span>$30000</span>
+                            </div>
+                             <div class="cart-info__bottom-row cart-info__bill">
+                                <span>Vận chuyển</span>
+                                <span>$30000</span>
+                            </div>
+                            <div class="checkout-stick checkout-stick-row"></div>
+                             <div class="cart-info__bottom-row" style="font-size: 24px;">
+                                <span>Cần thanh toán</span>
+                                <span>$30000</span>
+                            </div>
+
+                            <div class="cart-info__row-btn justify-center">
+                                <button class="btn-next-checkout btn--primary btn--rounded">Tiếp tục thanh toán</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+    <script>
+        load("#footer", "./compoents/footer.html");
+    </script>
+    <!--  -->
+   
+</body>
+</html>

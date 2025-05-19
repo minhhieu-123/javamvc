@@ -1,0 +1,33 @@
+@use "../abtracts";
+.logo{
+    
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    &_img{
+        @include abtracts.breakpoint(md){
+           height: 24px;
+        }
+        &_sign-up{
+            height: 36px;
+        }
+    }
+    &__title{
+         &_sign-up{
+            @include abtracts.breakpoint(md){
+                color: var(--color-text);
+                font-size: 3rem;
+                font-weight: 700;
+                line-height: 144.444%;
+            }
+        }
+        color: var(--color-text);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 144.444%;
+        
+    }
+    // &_sign-up{
+
+    // }
+}
