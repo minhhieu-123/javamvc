@@ -1,0 +1,131 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="slider">
+        <div class="slides">
+            <img class="slide" src="./assets/img/image - UIHUT.png" alt="Image #1">
+            <img class="slide" src="./assets/img/image (2).png" alt="Image #2">
+            <img class="slide" src="./assets/img/image  (1).png" alt="Image #3">
+        </div>
+        <button class="prev" onclick="prevSlide()">&#10094</button>
+        <button class="next" onclick="nextSlide()">&#10095</button>
+    </div>
+<style>
+.slider{
+    position: relative;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+.slider img{
+    width: 100%;
+    display: none;
+}
+img.displaySlide{
+    display: block;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+.slider button{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    padding: 10px 15px;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.prev{
+    left: 0;
+}
+.next{
+    right: 0;
+}
+@keyframes fade {
+    from {opacity: .5}
+    to {opacity: 1}
+}
+</style>
+    <script >
+        const slides = document.querySelectorAll(".slides img");
+        let indexSlide = 0;
+        let interval=null;
+        document.addEventListener("DOMContentLoaded",waitLookimg);
+        function waitLookimg(){
+            if(slides.length>0){
+                slides[indexSlide].classList.add("displaySlide");
+               interval= setInterval(nextSlide,5000);
+            }
+        }
+        function showSlide(index){
+            if(index>=slides.length){
+                indexSlide=0
+            }
+            else if (index<0){
+                indexSlide = slides.length-1
+            }
+            slides.forEach(item=>{
+                item.classList.remove("displaySlide")})
+                slides[indexSlide].classList.add("displaySlide");
+        }
+        function prevSlide(){
+            clearInterval(interval);
+            indexSlide--;
+            showSlide(indexSlide);
+        }
+        function nextSlide(){
+            indexSlide++;
+            showSlide(indexSlide);
+        }
+//         const slides = document.querySelectorAll(".slides img");
+// let slideIndex = 0;
+// let intervalId = null;
+
+// document.addEventListener("DOMContentLoaded", initializeSlider);
+
+// function initializeSlider(){
+//     if(slides.length > 0){
+//         slides[slideIndex].classList.add("displaySlide");
+//         intervalId = setInterval(nextSlide, 5000);
+//     }
+// }
+
+// function showSlide(index){
+//     if(index >= slides.length){
+//         slideIndex = 0;
+//     }
+//     else if(index < 0){
+//         slideIndex = slides.length - 1;
+//     }
+
+//     slides.forEach(slide => {
+//         slide.classList.remove("displaySlide");
+//     });
+//     slides[slideIndex].classList.add("displaySlide");
+// }
+
+// function prevSlide(){
+//     clearInterval(intervalId);
+//     slideIndex--;
+//     showSlide(slideIndex);
+// }
+
+// function nextSlide(){
+//     slideIndex++;
+//     showSlide(slideIndex);
+// }
+    </script>
+</body>
+</html>
+

@@ -1,12 +1,16 @@
 @use "../abtracts";
 
 .slide{
-   
+    position: relative;
     &__inner{
         display: flex;
         overflow: hidden;
     }
     &__item{
+        &-current{
+            display: block;
+        }
+        display: none;
         position: relative;
         flex-shrink: 0;
         width: 100%;
@@ -24,4 +28,16 @@
         object-fit: cover;
         border-radius: 20px;
     }
+}
+.btn-prev-slice{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.btn-next-slice{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateX(50%) translateY(-50%);
 }
