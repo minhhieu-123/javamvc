@@ -1,0 +1,90 @@
+
+    .table {
+  width: 100%;
+  border-collapse: collapse;
+}.table__group{
+    display: flex;
+    flex-direction: row;
+}
+.table__name-product{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
+    height: 3rem;
+}
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table thead th {
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+.table tbody td {
+  vertical-align: top;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+button {
+  padding: 5px 12px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+.table__img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+}
+
+.quantity-control input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  height: 30px;
+}
+            .cart-sticky__footer{
+                position: sticky;
+                bottom: 0;
+                height: 100px;
+                padding: 20px 0;
+                background-color: #eee;
+            }
+            .cart-group__info{
+                display: flex;
+                justify-content: space-between;
+            }
+            .cart-group__left{
+                margin-left: 50px;
+            }
+            .cart-group__right{
+                line-height: 150%;
+                
+                font-weight: 500;
+            }

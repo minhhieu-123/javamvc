@@ -39,68 +39,108 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Product</h1>
+                        <h1 class="mt-4">Thêm mới sản phẩm</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Product</li>
+                            <li class="breadcrumb-item active">Sản phẩm</li>
+                             <li class="breadcrumb-item active">Thêm mới sản phẩm</li>
                         </ol>
                         <div class="row">
                                 <div class="card-body">
-                                    <p class="h1">
-                                        Create Product
-                                    </p>
                                     <form:form method="POST" action="/admin/product/create-product" modelAttribute="newProducts" enctype="multipart/form-data">
+                                        <c:set var="ErrorName">
+                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorPrice">
+                                            <form:errors path="price" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorQuantily">
+                                            <form:errors path="quantily" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorBrand">
+                                            <form:errors path="brand" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorCategory">
+                                            <form:errors path="category" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorDesc">
+                                            <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorDescDetail">
+                                            <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                        </c:set>
                                         <div class="mb-3">
                                             <label class="form-label">Tên</label>
-                                            <form:input path="name" type="text" class="form-control" placeholder="Tên"/>
+                                            <form:input path="name" type="text" class="form-control ${not empty ErrorName? 'is-invalid':''}" placeholder="Tên"  />
+                                            ${ErrorName}
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
                                                 <label class="form-label">Giá</label>
                                                     <div class="input-group-append">
-                                                        <form:input path="price" type="text" class="form-control" placeholder="Giá"/>
+                                                        <form:input path="price" type="number" class="form-control ${not empty ErrorPrice? 'is-invalid':''}" placeholder="Giá" />
                                                         <span class="input-group-text" id="basic-addon2">VNĐ</span>
+                                                        ${ErrorPrice}
                                                     </div>
                                            </div>
                                             <div class="form-group col-md-4">
                                                <label class="form-label">Giảm giá</label>
-                                               <form:input path="discount" type="text" class="form-control" placeholder="Giảm giá"/>
-                                           </div>
+                                               <form:input path="discount" type="number" class="form-control" placeholder="Giảm giá" />
+                                            </div>
                                             <div class="form-group col-md-4">
                                                 <label class="form-label">Số lượng</label>
-                                                <form:input path="quantily" type="text" class="form-control" placeholder="Số lượng"/>
+                                                <form:input path="quantily" type="number" class="form-control ${not empty ErrorQuantily? 'is-invalid':''}" placeholder="Số lượng" />
+                                                ${ErrorQuantily}
                                            </div>
                                         </div>
                                         <div class="form-row">
                                              <div class="form-group col-md-6">
                                                 <label class="form-label">Thương hiệu</label>
-                                                <form:select name="" id="" class="form-select" path="brand.id">
-                                                    <option value="" disabled selected>Vui lòng chọn thương hiệu</option>
+                                                <form:select  class="form-select ${not empty ErrorBrand? 'is-invalid':''}" path="brand.id" >
+                                                    <option  disabled selected>Vui lòng chọn thương hiệu</option>
                                                     <c:forEach items="${brand}" var="brands">
-                                                        <option value="${brands.id}" label="${brands.name}"></option>
+                                                        <c:choose>
+                                                              <c:when test="${empty brands.name}">
+                                                                <option value="${brands.id}" style="display:none;"></option>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <option value="${brands.id}" label="${brands.name}"></option>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:forEach>
                                                 </form:select>
+                                                ${ErrorBrand}
                                            </div>
                                             <div class="form-group col-md-6">
                                                 <label class="form-label">Danh mục</label>
-                                                <form:select name="" id="" class="form-select" path="category.id">
+                                                <form:select  class="form-select ${not empty ErrorCategory? 'is-invalid':''}" path="category.id" >
                                                     <option value="" disabled selected>Vui lòng chọn danh mục</option>
                                                     <c:forEach items="${category}" var="categorys">
-                                                        <option value="${categorys.id}" label="${categorys.name}"></option>
+                                                        <c:choose>
+                                                            <c:when test="${empty categorys.name}">
+                                                                <option value="${categorys.id}" style="display:none;"></option>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <option value="${categorys.id}">${categorys.name}</option>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:forEach>
                                                 </form:select>
+                                                ${ErrorCategory}
                                            </div>
                                         </div>
                                          <div class="mb-3">
                                             <label class="form-label">Mô tả ngắn</label>
-                                            <form:input path="shortDesc" type="text" class="form-control" placeholder="Mô tả ngắn"/>
+                                            <form:input path="shortDesc" type="text" class="form-control ${not empty ErrorDesc? 'is-invalid':''}" placeholder="Mô tả ngắn" />
+                                            ${ErrorDesc}
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Mô tả chi tiết</label>
-                                            <form:input path="detailDesc" type="text" class="form-control" placeholder="Mô tả chi tiết"/>
+                                            <form:input path="detailDesc" type="text" class="form-control ${not empty ErrorDescDetail? 'is-invalid':''}" placeholder="Mô tả chi tiết"/>
+                                            ${ErrorDescDetail}
                                         </div>
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Ảnh thương hiệu</label>
-                                            <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg" name="productFile"/>
+                                            <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg" name="productFile" required/>
                                         </div>
                                         <div class="mb-3">
                                             <img alt="avata preview" style="max-height: 250px;width: auto; display: none;" class="form-control" type="file" id="avatarPreview">

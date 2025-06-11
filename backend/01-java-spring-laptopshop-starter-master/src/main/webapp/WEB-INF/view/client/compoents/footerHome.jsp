@@ -6,7 +6,7 @@
             <div class="footer__col">
                     <!-- logo -->
                 <a href="/" class="logo">
-                    <img src="./assets/icon/logo.svg" alt="Hieu Perfume" class="logo">
+                    <img src="/client/assets/icon/logo.svg" alt="Hieu Perfume" class="logo">
                     <h2 class="logo__title">HieuPerfume</h2>
                 </a>
                 <!--  -->

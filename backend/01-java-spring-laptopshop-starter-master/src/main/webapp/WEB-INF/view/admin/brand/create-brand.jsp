@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -39,32 +40,42 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Product</h1>
+                        <h1 class="mt-4">Thêm mới thương hiệu</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Product</li>
                             <li class="breadcrumb-item active">Brand</li>
                         </ol>
                         <div class="row">
                                 <div class="card-body">
-                                    <p class="h1">
-                                        Create Brand
-                                    </p>
                                     <form:form method="POST" action="/admin/brand/create" modelAttribute="newbrand" enctype="multipart/form-data">
+                                        <c:set var="ErrorName">
+                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorDesc_cate">
+                                            <form:errors path="desc_cate" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorOrigin">
+                                            <form:errors path="origin" cssClass="invalid-feedback" />
+                                        </c:set>
                                         <div class="mb-3">
                                             <label class="form-label">Tên</label>
-                                            <form:input path="name" type="text" class="form-control" placeholder="Tên"/>
+                                            <form:input path="name" type="text" class="form-control ${not empty ErrorName? 'is-invalid':''}" placeholder="Tên"/>
+                                            ${ErrorName}
                                         </div>
                                          <div class="mb-3">
                                             <label class="form-label">Mô tả</label>
-                                            <form:input path="desc_cate" type="text" class="form-control" placeholder="Mô tả"/>
+                                            <form:input path="desc_cate" type="text" class="form-control ${not empty ErrorDesc_cate? 'is-invalid':''}" placeholder="Mô tả"/>
+                                            ${ErrorDesc_cate}
                                         </div>
                                          <div class="mb-3">
                                             <label class="form-label">Xuất xứ</label>
-                                            <form:input path="origin" type="text" class="form-control" placeholder="Xuất xứ"/>
+                                            <form:input path="origin" type="text" class="form-control ${not empty ErrorOrigin? 'is-invalid':''}" placeholder="Xuất xứ"/>
+                                            ${ErrorOrigin}
                                         </div>
                                         <div class="mb-3">
-                                            <label for="formFile" class="form-label">Ảnh thương hiệu</label>
-                                            <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg" name="brandFile"/>
+                                            <label for="formFile" class="form-label ">Ảnh thương hiệu</label>
+                                            <input class="form-control " type="file" id="avatarFile" accept=".png, .jpg, .jpeg" name="brandFile"/>
+                                
                                         </div>
                                         <div class="mb-3">
                                             <img alt="avata preview" style="max-height: 250px;width: auto; display: none;" class="form-control" type="file" id="avatarPreview">

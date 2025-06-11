@@ -11,8 +11,10 @@ import vn.hoidanit.laptopshop.domain.User;
 @Repository
 public interface UserReponsitory extends JpaRepository<User, Long>{
     User save(User minhhieu);
-    List<User> findByEmail(String email);
+    List<User> findOneByEmail(String email);
     void deleteById(long id);
     User findById(long id);
     List<User> findAll();
+    boolean existsByEmail(String email);
+    User findByEmail(String email);
 }

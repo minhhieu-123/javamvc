@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +13,7 @@
         <title>Dashboard - SB Admin</title>
         <link href="/admin/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
     </head>
     <body class="sb-nav-fixed">
         <!-- header -->
@@ -22,11 +24,41 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h1 class="mt-4">Quản lý order</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                      order
+                      <div class="card-body">
+                                <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tổng tiền</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Thời gian tạo</th>
+                                    <th scope="col">Tùy chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <c:forEach var="order" items="${orders}">
+                                        <tr>
+                                            <th scope="row">${order.id}</th>
+                                            <td><fmt:formatNumber type="number" value="${order.totalPrice}"/></td>
+                                            <td>${order.user.email}</td>
+                                            <td>${order.status}</td>
+                                            <td>${order.date}</td>
+                                            <td>
+                                                <a href="/admin/order/${order.id}" class="btn btn-info" style="margin-right: 10px;">View</a>
+                                                <a href="/admin/order/update-order/${order.id}" class="btn btn-warning" style="margin-right: 10px;">Edit</a>
+                                                <a href="/admin/order/delete-order/${order.id}"  class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+                                </tbody>
+                                </table>
+                            </div>
                     </div>
                 </main>
                 <jsp:include page="../reduce/footer.jsp" />

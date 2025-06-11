@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,17 +11,16 @@
     <!-- <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css"> -->
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="/assets/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <link rel="icon" type="image/png" href="/client/assets/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/client/assets/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/client/assets/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/client/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/client/assets/favicon/site.webmanifest" />
     <!--  -->
     <!-- Font -->
-    <link rel="stylesheet" href="/assets/fonts/stylesheet.css">
+    <link rel="stylesheet" href="/client/assets/fonts/stylesheet.css">
      <!--  -->
-    <link rel="stylesheet" href="/css/main.css">
-    <script src="/js/main.js"></script>
+    <link rel="stylesheet" href="/client/css/main.css">
 </head>
 <body>
     <!-- Header -->
@@ -37,20 +37,20 @@
                 <div class="slide__inner">
                     <div class="slide__item slide__item-current">
                         <a href="" class="slide__link">
-                            <source media="(max-width: 767.98px)" srcset="./assets/img/item-1.png"/>
-                            <img src="./assets/img/item-1.png" alt="" class="slide__img">
+                            <source media="(max-width: 767.98px)" srcset="/client/assets/img/item-1.png"/>
+                            <img src="/client/assets/img/item-1.png" alt="" class="slide__img">
                         </a>
                     </div>
                     <div class="slide__item ">
                         <a href="" class="slide__link">
                             <source />
-                            <img src="assets/img/image - UIHUT.png" alt="" class="slide__img">
+                            <img src="/client/assets/img/image - UIHUT.png" alt="" class="slide__img">
                         </a>
                     </div>
                     <div class="slide__item">
                         <a href="" class="slide__link">
                             <source />
-                            <img src="assets/img/item-1.png" alt="" class="slide__img">
+                            <img src="/client/assets/img/item-1.png" alt="" class="slide__img">
                         </a>
                     </div>
                 </div>
@@ -100,70 +100,49 @@
              </div>
          </section>
         <!--  -->
+         <section class="home__container cate-position">
+            <h2 class="home__heading">Danh mục</h2>
+            <div class="home__cate row row-cols-3 row-cols-md-1 cate__container">
+                <c:forEach var="category" items="${categorys}">
+                    <div class="col">
+                        <a href="/all-product?page=1&sort=no-thing&category=${category.name}" target="_blank" class="cate-item">
+                            <img src="/admin/assets/category/${category.image}" alt="" class="cate-item__thumb">
+                            <div class="cate-item__info">
+                                <h3 class="cate-item__title">${category.name}</h3>
+                            </div>
+                        </a>
+                    </div>
+                </c:forEach>
+                <!-- Item -->
+                <!--  -->
+            </div>
+            <button class="btn-prev btn-prev-scrolbar">&#10094</button>
+            <button class="btn-next btn-next-scrolbar">&#10095</button>
+            <div>
+
+            </div>
+        </section>
         <!-- Brand -->
          <section class="home__container cate-position">
             <h2 class="home__heading">Thương Hiệu</h2>
             <div class="home__cate row row-cols-3 row-cols-md-1 cate__container">
+                <c:forEach var="brand" items="${brands}">
+                    <div class="col">
+                        <a target="_blank" href="/all-product?page=1&sort=no-thing&brand=${brand.name}" class="cate-item">
+                            <img src="/admin/assets/brand/${brand.image}" alt="" class="cate-item__thumb">
+                            <div class="cate-item__info">
+                                <h3 class="cate-item__title">${brand.name}</h3>
+                                <p class="cate-item__desc">${brand.desc_cate}</p>
+                            </div>
+                        </a>
+                    </div>
+                </c:forEach>
                 <!-- Item -->
-                <div class="col">
-                    <article class="cate-item">
-                        <img src="./assets/img/image 83.png" alt="" class="cate-item__thumb">
-                        <div class="cate-item__info">
-                            <h3 class="cate-item__title">$24 - $150</h3>
-                            <p class="cate-item__desc">New sumatra mandeling coffe blend</p>
-                        </div>
-                    </article>
-                </div>
+             
                 <!-- Item -->
-                <div class="col">
-                    <article class="cate-item">
-                        <img src="./assets/img/image 83.png" alt="" class="cate-item__thumb">
-                        <div class="cate-item__info">
-                            <h3 class="cate-item__title">$24 - $150</h3>
-                            <p class="cate-item__desc">New sumatra mandeling coffe blend</p>
-                        </div>
-                    </article>
-                </div>
+
                 <!-- Item -->
-                <div class="col">
-                    <article class="cate-item">
-                        <img src="./assets/img/image 83.png" alt="" class="cate-item__thumb">
-                        <div class="cate-item__info">
-                            <h3 class="cate-item__title">$24 - $150</h3>
-                            <p class="cate-item__desc">New sumatra mandeling coffe blend</p>
-                        </div>
-                    </article>
-                </div>
                 <!--  -->
-                <div class="col">
-                    <article class="cate-item">
-                        <img src="./assets/img/image 83.png" alt="" class="cate-item__thumb">
-                        <div class="cate-item__info">
-                            <h3 class="cate-item__title">$24 - $150</h3>
-                            <p class="cate-item__desc">New sumatra mandeling coffe blend</p>
-                        </div>
-                    </article>
-                </div>
-                <!--  -->
-                  <div class="col">
-                    <article class="cate-item">
-                        <img src="./assets/img/image 83.png" alt="" class="cate-item__thumb">
-                        <div class="cate-item__info">
-                            <h3 class="cate-item__title">$24 - $150</h3>
-                            <p class="cate-item__desc">New sumatra mandeling coffe blend</p>
-                        </div>
-                    </article>
-                </div>
-                <!--  -->
-                  <div class="col">
-                    <article class="cate-item">
-                        <img src="./assets/img/image 83.png" alt="" class="cate-item__thumb">
-                        <div class="cate-item__info">
-                            <h3 class="cate-item__title">$24 - $150</h3>
-                            <p class="cate-item__desc">New sumatra mandeling </p>
-                        </div>
-                    </article>
-                </div>
             </div>
             <button class="btn-prev btn-prev-scrolbar">&#10094</button>
             <button class="btn-next btn-next-scrolbar">&#10095</button>
@@ -189,244 +168,111 @@
                     })
                 })
             </script>
-            </section>
+        </section>
         <!--  -->
         <!-- Products -->
         <section class="home__container">
             <div class="home__row">
                 <h2 class="home__heading">Sản Phẩm Mới Nhất</h2>
-                <button class="filter_btn">
-                    Bộ Lọc
-                    <img src="./assets/icon/filter.svg" alt="" class="filter_btn__icon">
-                </button>
+                <a href="/all-product" class="filter_btn">
+                    Tất Cả Sản Phẩm
+                    <img src="/client/assets/icon/filter.svg" alt="" class="filter_btn__icon">
+                </a>
             </div>
             <!-- product-card -->
             <div class="home_product row row-cols-4 row-cols-lg-2 row-cols-sm-2">
-                <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
+                <c:forEach var="products" items="${product}">
+                    <div class="col">
+                        <article class="product-card">
+                            <div class="product-card__link">
+                                <a href="/product/${products.id}" >
+                                    <img src="/admin/assets/product/${products.image}" alt="" class="product-card__thumb">
+                                </a>
+                                <c:if test="${products.discount != 0}">
+                                  <div class="prod-info__cost-sale-num prod-info__sticker-sale"><p>-${products.discount}%</p></div>
+                                </c:if>
+                               <style>
+                               </style>
                             </div>
-                        </div>
-                    </article>
-                </div>
+                            <div class="product-card__info">
+                                <h3 class="product-card__title">
+                                    <a href="/product/${products.id}">${products.name}</a>
+                                </h3>
+                                <p class="product-card__namebrand">
+                                    ${products.brand.name}
+                                </p>
+                                <div class="product-card__row">
+                                    <div class="product-card__cost-group">
+                                        <c:choose>
+                                            <c:when test="${products.discount == 0}">
+                                               <span class="product-card__cost">
+                                                  đ<fmt:formatNumber type="number" value="${products.price}"/>
+                                                </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="product-card__cost">
+                                                    đ<fmt:formatNumber type="number" value="${products.price-(products.price * (products.discount/100))}"/>
+                                                </span>
+                                                <div class="prod-info__cost-org">
+                                                    đ<fmt:formatNumber type="number" value="${products.price}"/>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <span class="product-card__rating">
+                                        <form action="/add-product-to-cart/${products.id}" method="post">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+                                              <button class="btn product-card__cart">
+                                                    <img src="/client/assets/icon/cart.svg" alt="">
+                                                </button>
+                                        </form>
+                                        <style>
+                                            .product-card__cart{
+                                                margin-right: 20px;
+                                            }
+                                        </style>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </c:forEach>
 
              <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
+                    <div class="product-card">
+                        
+                            <div class="product-card__link">
+                                <div href="" >
+                                    <img src="/client/assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
+                                </div>
                             </div>
-                        </div>
-                    </article>
+                            <div class="product-card__info">
+                                <h3 class="product-card__title">
+                                    <a href="">Coffee Beans - Espresso Arabica and Robusta Beans Espresso Arabica and Robusta Beans</a>
+                                </h3>
+                                <p class="product-card__namebrand">
+                                    Lavazza
+                                </p>
+                                <div class="product-card__row">
+                                    <span class="product-card__cost">
+                                        $47.00
+                                    </span>
+                                    <span class="product-card__rating">
+                                        <img src="/client/assets/icon/start.svg" alt="" class="product-card__star">
+                                        4.3
+                                    </span>
+                                </div>
+                            </div>
+                        
+                    </div>
                 </div>
 
-                <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-             <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col">
-                    <article class="product-card">
-                        <div class="product-card__link">
-                            <a href="" >
-                                <img src="./assets/img/image - UIHUT.png" alt="" class="product-card__thumb">
-                            </a>
-                        </div>
-                        <div class="product-card__info">
-                            <h3 class="product-card__title">
-                                <a href="">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-                            </h3>
-                            <p class="product-card__namebrand">
-                                Lavazza
-                            </p>
-                            <div class="product-card__row">
-                                <span class="product-card__cost">
-                                    $47.00
-                                </span>
-                                <span class="product-card__rating">
-                                    <img src="./assets/icon/start.svg" alt="" class="product-card__star">
-                                    4.3
-                                </span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
             </div>
         </section>
         <!--  -->
         <!-- footer -->
     </div>
      <jsp:include page="../compoents/footerHome.jsp" />
-    <!-- <footer id="footer" class="footer"></footer>
-    <script>
-        load("#footer", "./compoents/footer.html");
-    </script> -->
-    <!--  -->
 </body>
 </html>

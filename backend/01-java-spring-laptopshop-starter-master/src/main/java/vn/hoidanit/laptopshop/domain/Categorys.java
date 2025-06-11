@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "categorys")
@@ -15,7 +16,9 @@ public class Categorys {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+    @NotEmpty(message = "Name không được để trống")
     private String name;
+    @NotEmpty(message = "Slug không được để trống")
     private String slug;
     private String image;
     @OneToMany(mappedBy = "category")

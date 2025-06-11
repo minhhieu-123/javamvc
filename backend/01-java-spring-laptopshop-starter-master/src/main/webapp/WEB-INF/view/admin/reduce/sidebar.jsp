@@ -17,6 +17,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Order
                             </a>
+                            <a class="nav-link" href="/admin/notification">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Thông báo
+                            </a>
                             <div class="sb-sidenav-menu-heading">Product</div>
                             <a class="nav-link" href="/admin/product">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -34,7 +38,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        Minh Hiếu
                     </div>
                 </nav>
             </div>

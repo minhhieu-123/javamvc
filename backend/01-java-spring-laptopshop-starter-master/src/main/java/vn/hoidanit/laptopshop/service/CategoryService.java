@@ -25,4 +25,25 @@ public class CategoryService {
     public void deleteCategorybyID(long id){
         this.categoryReponsitory.deleteById(id);
     }
+        public boolean checkBrandExist(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return false;
+        }
+        return categoryReponsitory.existsByNameIgnoreCase(name.trim());
+    }
+    
+    /**
+     * Kiểm tra thương hiệu tồn tại ngoại trừ ID cụ thể (cho cập nhật)
+     */
+    public boolean checkBrandExistExcludingId(String name, Long excludeId) {
+        if (name == null || name.trim().isEmpty()) {
+            return false;
+        }
+        
+        if (excludeId == null) {
+            return checkBrandExist(name);
+        }
+        
+        return categoryReponsitory.existsByNameIgnoreCaseAndIdNot(name.trim(), excludeId);
+    }
 }

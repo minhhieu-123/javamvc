@@ -50,13 +50,21 @@
                                         Create Category
                                     </p>
                                     <form:form method="POST" action="/admin/category/create" modelAttribute="newCategory" enctype="multipart/form-data">
+                                        <c:set var="ErrorName">
+                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorSlug">
+                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                        </c:set>
                                         <div class="mb-3">
                                             <label class="form-label">Tên</label>
-                                            <form:input path="name" type="text" class="form-control" placeholder="Tên"/>
+                                            <form:input path="name" type="text" class="form-control ${not empty ErrorName? 'is-invalid':''}" placeholder="Tên"/>
+                                            ${ErrorName}
                                         </div>
                                          <div class="mb-3">
                                             <label class="form-label">Slug</label>
-                                            <form:input path="slug" type="text" class="form-control" placeholder="Slug"/>
+                                            <form:input path="slug" type="text" class="form-control ${not empty ErrorSlug? 'is-invalid':''}" placeholder="Slug"/>
+                                            ${ErrorSlug}
                                         </div>
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Ảnh danh mục</label>

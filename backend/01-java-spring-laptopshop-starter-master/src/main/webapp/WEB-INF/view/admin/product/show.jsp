@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -54,7 +56,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <c:forEach var="products" items="${product}">
+                                    <c:forEach var="products" items="${product}">
                                         <tr>
                                             <th scope="row">${products.id}</th>
                                             <td class="d-flex" style="flex-direction: column;">
@@ -63,8 +65,8 @@
                                             </td>
                                             <td>${products.name}</td>
                                             <td>${products.quantily}</td>
-                                            <td>${brand.price}</td>
-                                            <td>${brand.discount}</td>
+                                            <td><fmt:formatNumber type="number" value="${products.price}"/></td>
+                                            <td>${products.discount}</td>
                                             <td>
                                                 <a href="/admin/product/${products.id}" class="btn btn-info" style="margin-right: 10px;">view</a>
                                                 <a href="/admin/product/update-product/${products.id}" class="btn btn-warning" style="margin-right: 10px;">Edit</a>
@@ -74,7 +76,26 @@
                                     </c:forEach>
 
                                 </tbody>
-                                </table>
+                            </table>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                    <a class="${1 eq currentpage ? 'disabled page-link':'page-link'}" href="/admin/product?page=${currentpage-1}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                    <c:forEach begin="0" end="${totalpage -1}" varStatus="loop">
+                                        <li class="page-item ">
+                                            <a class="${(loop.index +1) eq currentpage ? 'active page-link':'page-link'}" href="/admin/product?page=${loop.index +1}">${loop.index +1}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li class="page-item">
+                                    <a class="${totalpage eq currentpage ? 'disabled page-link':'page-link'}" href="/admin/product?page=${currentpage+1}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </ul>
+                            </nav>
                             </div>
     </div>
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

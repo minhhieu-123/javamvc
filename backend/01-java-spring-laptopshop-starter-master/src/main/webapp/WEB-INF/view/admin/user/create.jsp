@@ -52,16 +52,28 @@
         <div class="row">
             <form:form method="POST" action="/admin/user/create" modelAttribute="newUsers" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label  class="form-label" for="">user</label>
-                    <form:input path="email" class="form-control" type="text" />
+                     <c:set var="ErrorEmail">
+                        <form:errors path="email" cssClass="invalid-feedback" />
+                    </c:set>
+                    <label  class="form-label" for="">Email</label>
+                    <form:input path="email" class="form-control ${not empty ErrorEmail? 'is-invalid':''}" type="text" />
+                    ${ErrorEmail}
                 </div>
                  <div class="mb-3">
-                    <label  class="form-label" for="">passworld</label>
-                    <form:input path="passworld" class="form-control" type="password"/>
+                     <c:set var="ErrorPass">
+                        <form:errors path="passworld" cssClass="invalid-feedback" />
+                    </c:set>
+                    <label  class="form-label" for="">Passworld</label>
+                    <form:input path="passworld" class="form-control ${not empty ErrorPass? 'is-invalid':''}" type="password"/>
+                     ${ErrorPass}
                 </div>
                  <div class="mb-3">
-                    <label  class="form-label" for="">fullname</label>
-                    <form:input path="fullName" class="form-control" type="text"/>
+                    <c:set var="ErrorName">
+                        <form:errors path="fullName" cssClass="invalid-feedback" />
+                    </c:set>
+                    <label  class="form-label" for="">Fullname</label>
+                    <form:input path="fullName" class="form-control ${not empty ErrorName? 'is-invalid':''}" type="text"/>
+                      ${ErrorName}
                 </div>
                  <div class="mb-3">
                     <label  class="form-label" for="">address</label>

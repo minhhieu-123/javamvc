@@ -13,4 +13,6 @@ public interface CategoryReponsitory extends JpaRepository<Categorys, Long>{
     Categorys findById(long id);
     Categorys deleteById(long id);
     Categorys findByName(String name);
+    boolean existsByNameIgnoreCase(String name);
+    boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
 }

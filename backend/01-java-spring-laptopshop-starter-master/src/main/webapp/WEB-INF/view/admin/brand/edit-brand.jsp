@@ -22,6 +22,12 @@
           <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
+                        const orgImage = "${newbrand.image}"
+                        if(orgImage){
+                            const urlImage = "/admin/assets/brand/" + orgImage;
+                            $("#avatarPreview").attr("src", urlImage);
+                            $("#avatarPreview").css({ "display": "block" });
+                        }
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#avatarPreview").attr("src", imgURL);
@@ -39,38 +45,49 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Product</h1>
+                        <h1 class="mt-4">Cập Nhật Thương Hiệu</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Product</li>
                             <li class="breadcrumb-item active">Brand</li>
                         </ol>
                         <div class="row">
-                                 <p class="h1">Cập nhật Sản Phẩm</p>
                                 <div class="card-body">
                                     <form:form method="POST" action="/admin/brand/update-brand" modelAttribute="newbrand" enctype="multipart/form-data">
+                                        <c:set var="ErrorName">
+                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorDesc_cate">
+                                            <form:errors path="desc_cate" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorOrigin">
+                                            <form:errors path="origin" cssClass="invalid-feedback" />
+                                        </c:set>
                                         <div class="mb-3">
                                             <label  class="form-label h3" for="" >ID: ${id_brand}</label>
                                             <form:input path="id" class="form-control" type="hidden" />
                                         </div>
-                                         <div class="mb-3">
+                                        <div class="mb-3">
                                             <label class="form-label">Tên</label>
-                                            <form:input path="name" type="text" class="form-control" placeholder="Tên"/>
+                                            <form:input path="name" type="text" class="form-control ${not empty ErrorName? 'is-invalid':''}" placeholder="Tên"/>
+                                            ${ErrorName}
                                         </div>
-                                         <div class="mb-3">
+                                        <div class="mb-3">
                                             <label class="form-label">Mô tả</label>
-                                            <form:input path="desc_cate" type="text" class="form-control" placeholder="Mô tả"/>
+                                            <form:input path="desc_cate" type="text" class="form-control ${not empty ErrorDesc_cate? 'is-invalid':''}" placeholder="Mô tả"/>
+                                            ${ErrorDesc_cate}
                                         </div>
                                          <div class="mb-3">
                                             <label class="form-label">Xuất xứ</label>
-                                            <form:input path="origin" type="text" class="form-control" placeholder="Xuất xứ"/>
+                                            <form:input path="origin" type="text" class="form-control ${not empty ErrorOrigin? 'is-invalid':''}" placeholder="Xuất xứ"/>
+                                            ${ErrorOrigin}
                                         </div>
-                                        <!-- <div class="mb-3">
+                                        <div class="mb-3">
                                             <label for="formFile" class="form-label">Ảnh thương hiệu</label>
-                                            <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg" name="brandFile"/>
+                                            <input class="form-control " type="file" id="avatarFile" accept=".png, .jpg, .jpeg" name="brandFile"/>
                                         </div>
                                         <div class="mb-3">
                                             <img alt="avata preview" style="max-height: 250px;width: auto; display: none;" class="form-control" type="file" id="avatarPreview">
-                                        </div> -->
+                                        </div>
                                         <button class="btn btn-primary">submit</button>
                                     </form:form>
                                 </div>

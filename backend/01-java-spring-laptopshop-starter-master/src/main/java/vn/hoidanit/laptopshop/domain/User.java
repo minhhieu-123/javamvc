@@ -9,7 +9,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -17,8 +22,15 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+    @Email(message = "Email không hợp lệ VD: a@abc.abc", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotEmpty(message = "Email không được để trống")
     private String email;
+    @NotNull
+    @Size(min = 2, message = "Passworld phải có tối thiểu 2 ký tự")
+    // @StrongPassword(message = "Pass phải có 8 ký tự, 1 in hoa, 1 ký tự thường")
     private String passworld;
+    @NotNull
+    @Size(min = 6, message = "Fullname phải có tối thiểu 6 ký tự")
     private String fullName;
     private String address;
     private String phone;
@@ -26,6 +38,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     List<Orders> orders;
+
+    @OneToMany(mappedBy = "user")
+    List<Location> locations;
+
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
     public List<Orders> getOrders() {
         return orders;
     }
@@ -88,5 +106,11 @@ public class User {
     }
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+    public Cart getCart() {
+        return cart;
+    }
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

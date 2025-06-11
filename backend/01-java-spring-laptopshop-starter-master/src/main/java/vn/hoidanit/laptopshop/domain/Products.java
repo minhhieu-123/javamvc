@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -14,22 +16,32 @@ public class Products {
       @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+    @NotEmpty(message = "Name không được để trống")
     private String name;
+    @NotNull(message = "Giá không được để trống")
     private double price;
     private String image;
+    @NotEmpty(message = "Mô tả không được để trống")
     private String detailDesc;
+    @NotEmpty(message = "Mô tả không được để trống")
     private String shortDesc;
+    @NotNull(message = "số lượng không được để trống")
     private long quantily;
     private long shold;
     private long discount;
     @ManyToOne
+    @NotNull(message = "Thương hiệu không được để trống")
     @JoinColumn(name = "brand_id")
     private Brands brand;
 
-     @ManyToOne
+    @ManyToOne
+    @NotNull(message = "Danh mục không được để trống")
     @JoinColumn(name = "category_id")
     private Categorys category;
-
+        @Override
+        public String toString() {
+            return this.name != null ? this.name : "";
+        }
      public long getId() {
          return id;
      }
@@ -118,10 +130,5 @@ public class Products {
          this.discount = discount;
      }
 
-     @Override
-     public String toString() {
-        return "Products [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", detailDesc="
-                + detailDesc + ", shortDesc=" + shortDesc + ", quantily=" + quantily + ", shold=" + shold
-                + ", discount=" + discount + ", brand=" + brand + ", category=" + category + "]";
-     }
+  
 }

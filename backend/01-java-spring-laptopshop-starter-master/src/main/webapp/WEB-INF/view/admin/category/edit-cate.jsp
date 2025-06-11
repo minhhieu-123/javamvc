@@ -22,6 +22,12 @@
           <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
+                           const orgImage = "${newCategory.image}"
+                        if(orgImage){
+                            const urlImage = "/admin/assets/category/" + orgImage;
+                            $("#avatarPreview").attr("src", urlImage);
+                            $("#avatarPreview").css({ "display": "block" });
+                        }
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#avatarPreview").attr("src", imgURL);
@@ -39,26 +45,40 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Product</h1>
+                        <h1 class="mt-4">Cập Nhật Danh Mục</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Product</li>
-                            <li class="breadcrumb-item active">Brand</li>
+                            <li class="breadcrumb-item active">Sản phẩm</li>
+                            <li class="breadcrumb-item active">Danh mục</li>
                         </ol>
                         <div class="row">
-                                 <p class="h1">Cập Nhật Sản Phẩm</p>
                                 <div class="card-body">
-                                    <form:form method="POST" action="/admin/category/update-category" modelAttribute="newCategory">
+                                    <form:form method="POST" action="/admin/category/update-category" modelAttribute="newCategory" enctype="multipart/form-data">
+                                         <c:set var="ErrorName">
+                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                        </c:set>
+                                        <c:set var="ErrorSlug">
+                                            <form:errors path="slug" cssClass="invalid-feedback" />
+                                        </c:set>
                                         <div class="mb-3">
                                             <label  class="form-label h3" for="" >ID: ${id_category}</label>
                                              <form:input path="id" class="form-control" type="text" style="display: none;"/>
                                         </div>
                                          <div class="mb-3">
                                             <label class="form-label">Tên</label>
-                                            <form:input path="name" type="text" class="form-control" placeholder="Tên"/>
+                                            <form:input path="name" type="text" class="form-control ${not empty ErrorName? 'is-invalid':''}" placeholder="Tên"/>
+                                             ${ErrorName}
                                         </div>
                                          <div class="mb-3">
                                             <label class="form-label">Slug</label>
-                                            <form:input path="slug" type="text" class="form-control" placeholder="Mô tả"/>
+                                            <form:input path="slug" type="text" class="form-control ${not empty ErrorSlug? 'is-invalid':''}" placeholder="Mô tả"/>
+                                             ${ErrorSlug}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Ảnh danh mục</label>
+                                            <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg" name="categoryFile"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <img alt="avata preview" style="max-height: 250px;width: auto; display: none;" class="form-control" type="file" id="avatarPreview">
                                         </div>
                                         <button class="btn btn-primary">submit</button>
                                     </form:form>

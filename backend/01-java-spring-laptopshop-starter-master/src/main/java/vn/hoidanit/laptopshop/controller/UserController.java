@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.UploadService;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -63,7 +67,14 @@ public class UserController {
         return "admin/user/create";
     }
     @PostMapping(value = "/admin/user/create")
-     public String createUserPage(Model model, @ModelAttribute("newUsers") User minhhieu, @RequestParam("minhhieuFile") MultipartFile file){
+     public String createUserPage(Model model, @ModelAttribute("newUsers") @Valid User minhhieu,BindingResult bindingResult, @RequestParam("minhhieuFile") MultipartFile file){
+        List<FieldError> errors = bindingResult.getFieldErrors();
+        for (FieldError error : errors ) {
+            System.out.println (">>>>>>"+error.getField() + " - " + error.getDefaultMessage());
+        }
+        if (bindingResult.hasErrors()){
+            return "admin/user/create";
+        }
         String avt = this.uploadService.handleSaveUploadFile(file, "avt");
         String hashPassword = this.passwordEncoder.encode(minhhieu.getPassworld());
         minhhieu.setAvatar(avt);
@@ -88,7 +99,7 @@ public class UserController {
     public String deleteUserPage(Model model,   @PathVariable long iduser){
         model.addAttribute("newUsers", new User());
         model.addAttribute("iduser", iduser);
-        return "/admin/user/delete-user";
+        return "admin/user/delete-user";
     }
 
     @PostMapping(value = "/admin/user/delete")

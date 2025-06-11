@@ -1,232 +1,167 @@
- 
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
-// api chọn tỉnh
+    $(document).ready(function(){
+            $('.quantity button').on('click',function(){
+                let change = 0;
+                var button=$(this);
+                var oldValue = button.parent().parent().find('input').val();
+                if (button.hasClass('btn-plus')){
+                    var newVal = parseFloat(oldValue) + 1;
+                    change = 1;
+                } else {
+                    if (oldValue > 1){
+                        var newVal = parseFloat(oldValue) -1 ;
+                        change = -1;
+                    } else {
+                        newVal = 1;
+                    }
+                }
+                console.log(oldValue);
+                console.log(newVal);
+                // get price
+                const input = button.parent().parent().find('input');
+                input.val(newVal);
 
-/**
- * Hàm tải template
- *
- * Cách dùng:
- * <div id="parent"></div>
- * <script>
- *  load("#parent", "./path-to-template.html");
- * </script>
- */
-function load(selector, path) {
-    const cached = localStorage.getItem(path);
-    if (cached) {
-        $(selector).innerHTML = cached;
-    }
+                const index = input.attr("data-cart-detail-index");
+                const el = document.getElementById(`cartDetails${index}.quantity`);
+                $(el).val(newVal);
 
-    fetch(path)
-        .then((res) => res.text())
-        .then((html) => {
-            if (html !== cached) {
-                $(selector).innerHTML = html;
-                localStorage.setItem(path, html);
+                const price = input.attr("data-cart-detail-price");
+                const id = input.attr("data-cart-detail-id");
+                console.log(id + "sadas");
+                const priceElement = $(`article[data-cart-detail-id='${id}']`);
+               if (priceElement.length > 0) {
+                    const newPrice = +price * newVal;
+                    priceElement.text(formatCurrency(newPrice.toFixed(2)) + "đ");
+                    console.log(newPrice + " new price");
+                } else {
+                    console.warn("Không tìm thấy article[data-cart-detail-id='" + id + "']");
+                }
+
+                const totalPriceElement = $(`p[data-cart-total-price]`);
+                
+                if(totalPriceElement && totalPriceElement.length){
+                    const currentTotal = totalPriceElement.first().attr("data-cart-total-price");
+                    console.log(currentTotal +"currentTotal price");
+                    let newTotal = +currentTotal;
+                    if(change === 0){
+                        newTotal = +currentTotal;
+                    } else {
+                        newTotal = change * (+price) + +currentTotal;
+                    }
+                    change = 0;
+                    totalPriceElement?.each(function(index, element){
+                        $(totalPriceElement[index]).text(formatCurrency(newTotal.toFixed(2))+ "đ")
+                        $(totalPriceElement[index]).attr("data-cart-total-price", newTotal);
+                    });
+                }
+                console.log(totalPriceElement+"total");
+                console.log(priceElement+"price");
+            });
+           function formatCurrency(value){
+                const formatter = new Intl.NumberFormat('vi-VN',{
+                    style: 'decimal',
+                    minimumFractionDigits: 0,
+                });
+                let formatted = formatter.format(value);
+                formatted = formatted.replace(/\./g, ',');
+                return formatted;
             }
-        })
-        .finally(() => {
-            window.dispatchEvent(new Event("template-loaded"));
-        });
-}
-
-/**
- * Hàm kiểm tra một phần tử
- * có bị ẩn bởi display: none không
- */
-// function isHidden(element) {
-//     if (!element) return true;
-
-//     if (window.getComputedStyle(element).display === "none") {
-//         return true;
-//     }
-
-//     let parent = element.parentElement;
-//     while (parent) {
-//         if (window.getComputedStyle(parent).display === "none") {
-//             return true;
-//         }
-//         parent = parent.parentElement;
-//     }
-
-//     return false;
-// }
-
-/**
- * Hàm buộc một hành động phải đợi
- * sau một khoảng thời gian mới được thực thi
- */
-// function debounce(func, timeout = 300) {
-//     let timer;
-//     return (...args) => {
-//         clearTimeout(timer);
-//         timer = setTimeout(() => {
-//             func.apply(this, args);
-//         }, timeout);
-//     };
-// }
-
-/**
- * Hàm tính toán vị trí arrow cho dropdown
- *
- * Cách dùng:
- * 1. Thêm class "js-dropdown-list" vào thẻ ul cấp 1
- * 2. CSS "left" cho arrow qua biến "--arrow-left-pos"
- */
-// const calArrowPos = debounce(() => {
-//     if (isHidden($(".js-dropdown-list"))) return;
-
-//     const items = $$(".js-dropdown-list > li");
-
-//     items.forEach((item) => {
-//         const arrowPos = item.offsetLeft + item.offsetWidth / 2;
-//         item.style.setProperty("--arrow-left-pos", `${arrowPos}px`);
-//     });
-// });
-
-// Tính toán lại vị trí arrow khi resize trình duyệt
-// window.addEventListener("resize", calArrowPos);
-
-// // Tính toán lại vị trí arrow sau khi tải template
-// window.addEventListener("template-loaded", calArrowPos);
-
-/**
- * Giữ active menu khi hover
- *
- * Cách dùng:
- * 1. Thêm class "js-menu-list" vào thẻ ul menu chính
- * 2. Thêm class "js-dropdown" vào class "dropdown" hiện tại
- *  nếu muốn reset lại item active khi ẩn menu
- */
-// window.addEventListener("template-loaded", handleActiveMenu);
-
-// function handleActiveMenu() {
-//     const dropdowns = $$(".js-dropdown");
-//     const menus = $$(".js-menu-list");
-//     const activeClass = "menu-column__item--active";
-
-//     const removeActive = (menu) => {
-//         menu.querySelector(`.${activeClass}`)?.classList.remove(activeClass);
-//     };
-
-//     const init = () => {
-//         menus.forEach((menu) => {
-//             const items = menu.children;
-//             if (!items.length) return;
-
-//             removeActive(menu);
-//             if (window.innerWidth > 991) items[0].classList.add(activeClass);
-
-//             Array.from(items).forEach((item) => {
-//                 item.onmouseenter = () => {
-//                     if (window.innerWidth <= 991) return;
-//                     removeActive(menu);
-//                     item.classList.add(activeClass);
-//                 };
-//                 item.onclick = () => {
-//                     if (window.innerWidth > 991) return;
-//                     removeActive(menu);
-//                     item.classList.add(activeClass);
-//                     item.scrollIntoView();
-//                 };
-//             });
-//         });
-//     };
-
-//     init();
-
-//     dropdowns.forEach((dropdown) => {
-//         dropdown.onmouseleave = () => init();
-//     });
-// }
-
-/**
- * JS toggle
- *
- * Cách dùng:
- * <button class="js-toggle" toggle-target="#box">Click</button>
- * <div id="box">Content show/hide</div>
- */
-// window.addEventListener("template-loaded", initJsToggle);
-
-// function initJsToggle() {
-//     $$(".js-toggle").forEach((button) => {
-//         const target = button.getAttribute("toggle-target");
-//         if (!target) {
-//             document.body.innerText = `Cần thêm toggle-target cho: ${button.outerHTML}`;
-//         }
-//         button.onclick = (e) => {
-//             e.preventDefault();
-
-//             if (!$(target)) {
-//                 return (document.body.innerText = `Không tìm thấy phần tử "${target}"`);
-//             }
-//             const isHidden = $(target).classList.contains("hide");
-
-//             requestAnimationFrame(() => {
-//                 $(target).classList.toggle("hide", !isHidden);
-//                 $(target).classList.toggle("show", isHidden);
-//             });
-//         };
-//         document.onclick = function (e) {
-//             if (!e.target.closest(target)) {
-//                 const isHidden = $(target).classList.contains("hide");
-//                 if (!isHidden) {
-//                     button.click();
-//                 }
-//             }
-//         };
-//     });
-// }
-
-// window.addEventListener("template-loaded", () => {
-//     const links = $$(".js-dropdown-list > li > a");
-
-//     links.forEach((link) => {
-//         link.onclick = () => {
-//             if (window.innerWidth > 991) return;
-//             const item = link.closest("li");
-//             item.classList.toggle("navbar__item--active");
-//         };
-//     });
-// });
-
-window.addEventListener("template-loaded", () => {
+$(document).ready(function () {
     const tabsSelector = "prod-tab__item";
     const contentsSelector = "prod-tab__content";
 
     const tabActive = `${tabsSelector}--current`;
     const contentActive = `${contentsSelector}--current`;
 
-    const tabContainers = $$(".js-tabs");
-    tabContainers.forEach((tabContainer) => {
-        const tabs = tabContainer.querySelectorAll(`.${tabsSelector}`);
-        const contents = tabContainer.querySelectorAll(`.${contentsSelector}`);
-        tabs.forEach((tab, index) => {
-            tab.onclick = () => {
-                tabContainer.querySelector(`.${tabActive}`)?.classList.remove(tabActive);
-                tabContainer.querySelector(`.${contentActive}`)?.classList.remove(contentActive);
-                tab.classList.add(tabActive);
-                contents[index].classList.add(contentActive);
-            };
+    $(".js-tabs").each(function () {
+        const $tabContainer = $(this);
+        const $tabs = $tabContainer.find(`.${tabsSelector}`);
+        const $contents = $tabContainer.find(`.${contentsSelector}`);
+
+        $tabs.each(function (index) {
+            $(this).on("click", function () {
+                $tabContainer.find(`.${tabActive}`).removeClass(tabActive);
+                $tabContainer.find(`.${contentActive}`).removeClass(contentActive);
+
+                $(this).addClass(tabActive);
+                $contents.eq(index).addClass(contentActive);
+            });
         });
     });
 });
+$(window).on("template-loaded", initJsToggle);
 
-// window.addEventListener("template-loaded", () => {
-//     const switchBtn = document.querySelector("#switch-theme-btn");
-//     if (switchBtn) {
-//         switchBtn.onclick = function () {
-//             const isDark = localStorage.dark === "true";
-//             document.querySelector("html").classList.toggle("dark", !isDark);
-//             localStorage.setItem("dark", !isDark);
-//             switchBtn.querySelector("span").textContent = isDark ? "Dark mode" : "Light mode";
-//         };
-//         const isDark = localStorage.dark === "true";
-//         switchBtn.querySelector("span").textContent = isDark ? "Light mode" : "Dark mode";
-//     }
-// });
+function initJsToggle() {
+    $(".js-toggle").each(function () {
+        const $button = $(this);
+        const targetSelector = $button.attr("toggle-target");
 
-// const isDark = localStorage.dark === "true";
-// document.querySelector("html").classList.toggle("dark", isDark);
+        if (!targetSelector) {
+            $("body").text(`Cần thêm toggle-target cho: ${$button.prop("outerHTML")}`);
+            return;
+        }
+
+        const $target = $(targetSelector);
+        if ($target.length === 0) {
+            $("body").text(`Không tìm thấy phần tử "${targetSelector}"`);
+            return;
+        }
+
+        $button.on("click", function (e) {
+            e.preventDefault();
+            const isHidden = $target.hasClass("hide");
+
+            requestAnimationFrame(() => {
+                $target.toggleClass("hide", !isHidden);
+                $target.toggleClass("show", isHidden);
+            });
+        });
+
+        $(document).on("click", function (e) {
+            if (!$(e.target).closest(targetSelector).length) {
+                if (!$target.hasClass("hide")) {
+                    $button.trigger("click");
+                }
+            }
+        });
+    });
+}
+$('#btnFilter').click(function(event){
+    event.preventDefault();
+    let factoryArr=[];
+    let targetArr=[];
+    let priceArr= [];
+    $("#factoryfilter .form-check-input:checked").each(function(){
+        factoryArr.push($(this).val());
+    });
+     $("#targetfilter .form-check-input:checked").each(function(){
+        targetArr.push($(this).val());
+    });
+     $("#pricefilter .form-check-input:checked").each(function(){
+        priceArr.push($(this).val());
+    });
+    let sortValue = $('input[name="radio-sort"]:checked').val();
+    const currentUrl = new URL(window.location.href);
+    const searchParams = currentUrl.searchParams;
+
+    searchParams.set('page','1');
+    searchParams.set('sort',sortValue);
+
+    if(factoryArr.length > 0){
+        searchParams.set('brand',factoryArr.join(','));
+    }
+    if(targetArr.length > 0){
+        searchParams.set('category',targetArr.join(','));
+    }
+    if(targetArr.length > 0){
+        searchParams.set('price',priceArr.join(','));
+    }
+    window.location.href = currentUrl.toString();
+
+});
+
+    // const params = new URLSearchParams(window.location.search);
+
+    // if(params.has('factory')){
+    //     const factories = params.get('factory').split(',');
+    // }
+        });

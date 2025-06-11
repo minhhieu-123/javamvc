@@ -2,21 +2,29 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "brand")
+
 public class Brands {
-      @Id
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
-     private String name;
+    @NotEmpty(message = "Name không được để trống")
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
+    @Size(min = 2, message = "Mô tả phải có tối thiểu 2 ký tự")
     private String desc_cate;
+    @Size(min = 2, message = "Xuất xứ phải có tối thiểu 2 ký tự")
     private String origin;
     private String image;
     @OneToMany(mappedBy = "brand")
