@@ -79,6 +79,7 @@ public class UserController {
         String hashPassword = this.passwordEncoder.encode(minhhieu.getPassworld());
         minhhieu.setAvatar(avt);
         minhhieu.setPassworld(hashPassword);
+        minhhieu.setIsEnabled(true);
         minhhieu.setRole(this.userService.getRoleByName(minhhieu.getRole().getName()));
         this.userService.handleSaveUser(minhhieu);
         return "redirect:/admin/user";

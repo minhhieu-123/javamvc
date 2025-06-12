@@ -2,7 +2,9 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,10 +37,25 @@ public class User {
     private String address;
     private String phone;
     private String avatar;
+    private Boolean isEnabled;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private EmailVerification emailVerification;
 
     @OneToMany(mappedBy = "user")
     List<Orders> orders;
 
+    public EmailVerification getEmailVerification() {
+        return emailVerification;
+    }
+    public void setEmailVerification(EmailVerification emailVerification) {
+        this.emailVerification = emailVerification;
+    }
+    public List<Location> getLocations() {
+        return locations;
+    }
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
+    }
     @OneToMany(mappedBy = "user")
     List<Location> locations;
 
@@ -112,5 +129,11 @@ public class User {
     }
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 }

@@ -97,6 +97,12 @@
                 <div class="mb-3">
                     <img alt="avata preview" style="max-height: 250px;width: auto; display: none;" class="form-control" type="file" id="avatarPreview">
                 </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" value="true" id="checkNativeSwitch" switch>
+                    <label class="form-check-label" for="checkNativeSwitch">
+                        Native switch haptics
+                    </label>
+                </div>
                 <button class="btn btn-primary">submit</button>
             </form:form>
         </div>

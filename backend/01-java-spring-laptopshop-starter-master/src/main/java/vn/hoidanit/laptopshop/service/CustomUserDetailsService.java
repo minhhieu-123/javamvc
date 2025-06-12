@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import vn.hoidanit.laptopshop.config.CustomUserDetails;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
     private final UserService userService;
@@ -18,13 +20,12 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         vn.hoidanit.laptopshop.domain.User user = this.userService.getUserByEmail(username);
-        if (user == null) {
+        if (user == null || user.getIsEnabled() == false) {
             throw new UsernameNotFoundException("User not found");
         }
          return new User(
                 user.getEmail(),
                 user.getPassworld(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+user.getRole().getName())));
-
     }
 }

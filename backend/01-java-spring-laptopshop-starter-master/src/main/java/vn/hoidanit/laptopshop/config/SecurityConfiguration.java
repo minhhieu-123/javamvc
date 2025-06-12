@@ -62,7 +62,7 @@ public class SecurityConfiguration {
                           .dispatcherTypeMatchers(DispatcherType.FORWARD,
                                 DispatcherType.INCLUDE) .permitAll()
                         .requestMatchers("/clound/**").permitAll()
-                        .requestMatchers("/","/sign-up","/sign-in","/product/**", "/client/**", "/css/**", "/js/**", "/assets/**","/admin/assets/**").permitAll()
+                        .requestMatchers("/","/sign-up","/sign-in","/product/**", "/client/**", "/css/**", "/js/**", "/assets/**","/admin/assets/**","/verify-email", "/resend-verification","/all-product/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                         .sessionManagement((sessionManagement) -> sessionManagement

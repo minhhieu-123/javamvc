@@ -1,14 +1,11 @@
 package vn.hoidanit.laptopshop.controller.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,13 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Brands;
 import vn.hoidanit.laptopshop.domain.Categorys;
 import vn.hoidanit.laptopshop.domain.Products;
-import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.DTO.NotiSummaryDTO;
 import vn.hoidanit.laptopshop.domain.DTO.ProductCriterialDTO;
 import vn.hoidanit.laptopshop.domain.DTO.RegisterDTO;
@@ -94,43 +91,97 @@ public class HomePageController {
         model.addAttribute("categorys", category);
         return "client/homepage/index";
     }
-     @GetMapping("/sign-up")
-    public String getSignUp(Model model){
+    //  @GetMapping("/sign-up")
+    // public String getSignUp(Model model){
+    //     model.addAttribute("signupUser", new RegisterDTO());
+    //     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    // if (auth != null && auth.isAuthenticated()
+    //     && !(auth instanceof AnonymousAuthenticationToken)) {
+    //     // Người dùng đã đăng nhập
+    //     return "redirect:/"; // hoặc trang bạn muốn
+    // }
+    //     return "client/auth/sign-up";
+    // }
+    //   @PostMapping("/sign-up")
+    // public String handleSignup(@ModelAttribute("signupUser") @Valid RegisterDTO registerDTO,
+    //     BindingResult bindingResult){
+    //     // List<FieldError> errors = bindingResult.getFieldErrors();
+    //     // for (FieldError error : errors ) {
+    //     //     System.out.println (error.getField() + " - " + error.getDefaultMessage());
+    //     // }
+    //     if(bindingResult.hasErrors()){
+    //         return "client/auth/sign-up";
+    //     }
+    //     User user = this.userService.signupDTOUser(registerDTO);
+    //     String hashPassword = this.passwordEncoder.encode(user.getPassworld());
+    //     user.setPassworld(hashPassword);
+    //     user.setRole(this.userService.getRoleByName("USER"));
+    //     this.userService.handleSaveUser(user);
+    //     return "redirect:/sign-in";
+    // }
+    @GetMapping("/sign-in")
+   public String getSignIn(Model model,HttpServletRequest request){
+   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+   if (auth != null && auth.isAuthenticated()
+       && !(auth instanceof AnonymousAuthenticationToken)) {
+       // Người dùng đã đăng nhập
+       return "redirect:/"; 
+   }
+       return "client/auth/sign-in";
+   }
+    @GetMapping("/sign-up")
+    public String getSignUp(Model model) {
         model.addAttribute("signupUser", new RegisterDTO());
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    if (auth != null && auth.isAuthenticated()
-        && !(auth instanceof AnonymousAuthenticationToken)) {
-        // Người dùng đã đăng nhập
-        return "redirect:/"; // hoặc trang bạn muốn
-    }
         return "client/auth/sign-up";
     }
-      @PostMapping("/sign-up")
-    public String handleSignup(@ModelAttribute("signupUser") @Valid RegisterDTO registerDTO,
-        BindingResult bindingResult){
-        // List<FieldError> errors = bindingResult.getFieldErrors();
-        // for (FieldError error : errors ) {
-        //     System.out.println (error.getField() + " - " + error.getDefaultMessage());
-        // }
-        if(bindingResult.hasErrors()){
+    @PostMapping("/sign-up")
+    public String postSignUp(@Valid @ModelAttribute("signupUser") RegisterDTO registerDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+           if (bindingResult.hasErrors()) {
             return "client/auth/sign-up";
         }
-        User user = this.userService.signupDTOUser(registerDTO);
-        String hashPassword = this.passwordEncoder.encode(user.getPassworld());
-        user.setPassworld(hashPassword);
-        user.setRole(this.userService.getRoleByName("USER"));
-        this.userService.handleSaveUser(user);
+        try {
+            userService.registerUser(registerDTO);
+            redirectAttributes.addFlashAttribute("message", 
+                "Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản.");
+            return "redirect:/sign-in";
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/sign-up";
+        }
+    }
+    @GetMapping("/verify-email")
+    public String verifyEmail(@RequestParam("token") String token,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            boolean isVerified = this.userService.verifyEmail(token);
+            if (isVerified) {
+                redirectAttributes.addFlashAttribute("message", 
+                    "Xác thực email thành công! Bạn có thể đăng nhập ngay bây giờ.");
+                return "redirect:/login";
+            } else {
+                redirectAttributes.addFlashAttribute("error", 
+                    "Token không hợp lệ hoặc đã hết hạn.");
+                return "redirect:/login";
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", 
+                "Có lỗi xảy ra khi xác thực email: " + e.getMessage());
+            return "redirect:/login";
+        }
+    }
+    @PostMapping("/resend-verification")
+    public String resendVerification(@RequestParam("email") String email,
+                                   RedirectAttributes redirectAttributes) {
+        try {
+            userService.resendVerificationEmail(email);
+            redirectAttributes.addFlashAttribute("message", 
+                "Email xác thực đã được gửi lại. Vui lòng kiểm tra hộp thư.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        
         return "redirect:/sign-in";
-    }
-     @GetMapping("/sign-in")
-    public String getSignIn(Model model,HttpServletRequest request){
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    if (auth != null && auth.isAuthenticated()
-        && !(auth instanceof AnonymousAuthenticationToken)) {
-        // Người dùng đã đăng nhập
-        return "redirect:/"; // hoặc trang bạn muốn
-    }
-        return "client/auth/sign-in";
     }
        @GetMapping("/access-deny")
     public String getDenyPage(Model model){
